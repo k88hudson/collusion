@@ -10,22 +10,22 @@
     // Variables for this visualization (global within this file)
     var links = [], // data for graph edges
         nodes = [], // vertices for graph edges
-        width = window.innerWidth,
-        height = window.innerHeight;
-        
+        containerEl = document.querySelector( "#container" ) || document.body,
+        width = containerEl.clientWidth,
+        height = containerEl.clientHeight;
+
     // Grab a handle to the SVG element in the page for use later
     // Resize it to fill the page
     var vis = d3.select('#svg')
         .attr('width', width)
         .attr('height', height);
     var force;
-    
-        
+
 // Resize when window resizes
 // We'll want to do this in any visualization
 window.addEventListener('resize', function(){
-    width = window.innerWidth;
-    height = window.innerHeight;
+    width = containerEl.clientWidth;
+    height = containerEl.clientHeight;
     // Resize SVG element
     vis.attr('width', width).attr('height', height);
     // Resize d3 visualization
@@ -35,12 +35,12 @@ window.addEventListener('resize', function(){
 });
 
 // Load some data from the dummy directory, this kicks off the whole thing
-//d3.json('../dummy/days_worth_of_data.json', dynamicForceVisualization);
+d3.json('../dummy/sample_small.json', dynamicForceVisualization);
 // line above requires a web server, here we don't have that problem:
-dynamicForceVisualization(data_large);
+//dynamicForceVisualization(data_large);
 
 function dynamicForceVisualization(trackers){
-    
+
     // Map Collusion data to nodes and links for force visualization
     // This is where we fill the links and nodes lists
     // Each link should have attributes source and target, but we can add others
@@ -51,7 +51,7 @@ function dynamicForceVisualization(trackers){
         var targetNode = trackers[targetName];
         var referrerNames = Object.keys(targetNode.referrers);
         targetNode.name = targetName;
-        targetNode.radius = 12 + referrerNames.length;
+        targetNode.radius = 4;
         nodes.push(targetNode);
 
         // shape trackers
@@ -60,7 +60,7 @@ function dynamicForceVisualization(trackers){
                 console.log('Source not in trackers: %s', sourceName);
                 var sourceNode = {
                     name: sourceName,
-                    radius: 12,
+                    radius: 4,
                     referrers: [],
                     visited: false
                 };
@@ -80,7 +80,7 @@ function dynamicForceVisualization(trackers){
     force = d3.layout.force()
         .nodes(nodes)
         .links(links)
-        .charge(-500)
+        .charge(-200)
         .size([width, height])
         .start();
        

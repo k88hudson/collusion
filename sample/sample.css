@@ -1,23 +1,28 @@
-#svg{
-    position: absolute;
-    left: 0;
-    top: 0;
+#container{
+    width: 960px;
+    height: 500px;
+    margin: 0 auto;
+    background: #FFF;
 }
 
-line{
-    stroke: #CCE;
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+line {
+    stroke: #DFDFDF;
     stroke-width: 1px;
 }
 
 circle.tracker{
-    stroke: #CEC;
-    stroke-width: 2px;
-    fill: #EDF;
+    stroke-width: 0;
+    fill: #E73547;
 }
 
 circle.site{
-    stroke: #66F;
-    stroke-width: 4px;
-    fill: #FED;
+    stroke: #6CB4F9;
+    stroke-width: 2px;
+    fill: #FFF;
 }
 
