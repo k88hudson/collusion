@@ -1,0 +1,223 @@
+// GLOBALS
+@lightgrey: #D9D9D9;
+@darkgrey: #333333;
+@blue: #5D82F6;
+@red: #FF606F;
+
+@header_h: 70px;
+
+@import "mixins";
+
+/*********************************************************
+* Dev
+*/
+
+header,
+.main,
+.row > div {
+    //box-shadow: 0 0 0 1px red;
+}
+
+/*********************************************************
+* Main
+*/
+
+body {
+    font-size: 14px;
+    font-family: "Open sans", Helvetica, sans-serif;
+}
+
+/*********************************************************
+* Header
+*/
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    height: @header_h;
+    line-height: @header_h;
+    border-bottom: 1px solid @lightgrey;
+
+    h1 {
+        border-top: 3px solid @darkgrey;
+        margin: 0;
+        font-size: 1.5em;
+        font-weight: normal;
+        padding-left: 1em;
+    }
+}
+
+.main {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: @header_h;
+}
+
+/*********************************************************
+* Tool Panel
+*/
+.tool-panel {
+    width: 200px;
+    height: 100%;
+
+    background: @darkgrey;
+    color: #FFF;
+
+    font-size: 0.9em;
+}
+
+// Inner padding
+.inner,
+.nav > li > a  {
+    padding: 1.2em;
+}
+
+// Navigation list
+.nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    > li > a {
+        display: block;
+        border-bottom: 1px solid lighten(@darkgrey, 10%);
+        &:hover {
+            .transition( background-color 0.2s linear );
+            background-color: lighten(@darkgrey, 15%);
+            border-bottom: 1px solid lighten(@darkgrey, 20%);
+        }
+        &.active,
+        &.active:hover {
+            color: @darkgrey;
+            background: #FFF;
+            &.site {
+                color: @blue;
+            }
+        }
+    }
+    > li:first-child > a {
+        border-top: 1px solid lighten(@darkgrey, 10%);
+    }
+}
+
+
+
+/*********************************************************
+* Info Panel
+*/
+
+.info-panel {
+    height: 100%;
+    overflow: hidden;
+    font-size: 0.9em;
+    .transition (all 0.2s ease-out);
+    width: 0;
+    .box-sizing( border-box );
+    &.on {
+        width: 360px;
+        border-right: 1px solid @lightgrey;
+    }
+
+    .inner {
+        margin: 3em 2em;
+    }
+
+    h3 {
+        font-size: 1em;
+    }
+
+    hgroup {
+        margin-bottom: 2em;
+        > h2,
+        > h3 {
+            margin: 0;
+            font-weight: normal;
+        }
+        > h3 {
+            color: #CCC;
+            line-height: 1.5;
+        }
+        > .status {
+            position: relative;
+            &.site {
+                color: @blue;
+            }
+            &:before {
+                position: absolute;
+                font-size: 3em;
+                line-height: 0.33;
+                margin-right: 3px;
+                right: 100%;
+                content: "\00B7";
+            }
+        }
+    }
+}
+
+.map {
+    background: @lightgrey;
+    width: 100%;
+    height: 200px;
+}
+
+
+/*********************************************************
+* Visualization
+*/
+
+.stage {
+    width: 600px;
+    height: 100%;
+}
+
+#container{
+    background: #FFF;
+    height: 100%;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+line {
+    stroke: lighten(#DFDFDF, 4% );
+    stroke-width: 1px;
+}
+
+circle.tracker{
+    stroke-width: 0;
+    fill: #E73547;
+}
+
+circle.site{
+    stroke: #6CB4F9;
+    stroke-width: 2px;
+    fill: #FFF;
+}
+
+/*********************************************************
+* Grid
+* |  80  | 20 |
+*/
+.row {
+    width: 1200px;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.row > div {
+    float: left;
+    margin-right: 20px;
+    .box-sizing( border-box );
+}
+.row > div:last-child {
+    margin-right: 0;
+}

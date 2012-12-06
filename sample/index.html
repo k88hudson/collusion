@@ -1,14 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
+	<meta charset="utf-8">
 	<title>Example D3 Visualization with Collusion Data</title>
-	<link rel="stylesheet" href="sample.css" />
+    <link rel="stylesheet" href="//www.mozilla.org/tabzilla/media/css/tabzilla.css">
+    <link rel="stylesheet" href="normalize.css">
+	<link rel="stylesheet" href="sample.css">
 </head>
 <body>
-    <div id="container">
-        <svg id="svg" width="2" height="2"></svg>
+    <header>
+        <h1>Browser view</h1>
+    </header>
+
+    <div class="main row">
+
+        <div class="tool-panel">
+            <div class="inner">Viewing all connections to your browser right now.</div>
+            <ul class="nav cl-nav">
+                <li><a class="cl-all">All</a></li>
+            </ul>
+        </div>
+
+            <div class="info-panel cl-info">
+                <div class="inner">
+                    <hgroup>
+                        <h2 class="cl-name">New York Times</h2>
+                        <h3 class="cl-url">nytimes.com</h3>
+                        <h3 class="status site">You are currently browsing this site</h3>
+                    </hgroup>
+
+                    <h3>Location</h3>
+                    <svg class="map"></svg>
+
+                    <h3>Info</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+            <div class="tracker-panel cl-tracker-panel">
+                <ul class="cl-tracker-list">
+                </ul>
+            </div>
+
+        <div id="container" class="stage cl-stage" >
+            <svg id="svg" width="2" height="2"></svg>
+        </div>
     </div>
+
+
     <script src="../data/lib/d3.v2.js"></script>
     <script src="data/1_nyt.js"></script>
     <script src="data/2_imdb.js"></script>
@@ -17,5 +60,92 @@
     <script src="data/5_dictionary.js"></script>
     <script src="data/6_lastfm.js"></script>
     <script src="vis3.js"></script>
+
+    <script type="text/javascript" src="//use.typekit.net/qng7ttt.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+    <script>
+        var SAMPLE_DATA = {
+            "nytimes.com" : {
+                name: "New York Times",
+                trackers: [
+                    "facebook.com",
+                    "blah.com"
+                ]
+            },
+            "facebook.com": {
+                name: "Facebook",
+                trackers: [
+                    "facebook.com",
+                    "blah.com"
+                ]
+            }
+        };
+
+        var nav = document.querySelector( ".cl-nav" );
+        var allTab = document.querySelector( ".cl-all" );
+        var stage = document.querySelector( ".cl-stage" );
+        var infoPanel = document.querySelector( ".cl-info" );
+        var trackerPanel = document.querySelector( ".cl-tracker-panel" );
+        var activeTab;
+
+        var siteTitle = infoPanel.querySelector( ".cl-name" );
+        var siteURL = infoPanel.querySelector( ".cl-url" );
+        var trackerList = trackerPanel.querySelector( ".cl-tracker-list" );
+
+        var views = {};
+
+        function toggleActiveState() {
+            if ( activeTab ) {
+                activeTab.classList.remove( "active" );
+            }
+            this.classList.toggle( "active" );
+            activeTab = this;
+        }
+
+        views.all = function() {
+            toggleActiveState.call( this );
+            infoPanel.classList.remove( "on" );
+            trackerPanel.classList.remove( "on" );
+            stage.style.width = "750px";
+        };
+
+        views.site = function() {
+            var url = this.innerHTML,
+                data = SAMPLE_DATA[ url ];
+
+            toggleActiveState.call( this );
+            infoPanel.classList.add( "on" );
+            trackerPanel.classList.add( "on" );
+            stage.style.width = "";
+
+            siteTitle.innerHTML = data.name;
+            siteURL.innerHTML = url;
+        };
+
+        function createSiteEl( site ) {
+            var data = SAMPLE_DATA[ site ],
+                li = document.createElement( "li" ),
+                a = document.createElement( "a" );
+
+            a.innerHTML = site;
+            a.classList.add( "site" );
+            a.addEventListener( "click", views.site, false );
+
+            li.appendChild( a );
+            nav.appendChild( li );
+        }
+
+        // Setup
+        for ( var site in SAMPLE_DATA ) {
+            if ( SAMPLE_DATA.hasOwnProperty ( site ) ) {
+                createSiteEl( site );
+            }
+        }
+
+        allTab.addEventListener( "click", views.all, false );
+        views.all();
+
+    </script>
 </body>
 </html>
