@@ -7,3 +7,4 @@ data/deployment.json
 ._*
 collusion.xpi
 exported_graphs
+sample/node_modules
