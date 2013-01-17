@@ -9,15 +9,31 @@
 </head>
 <body>
     <header>
-        <h1>Browser view</h1>
+        <h1>Collusion</h1>
     </header>
 
     <div class="main row">
 
         <div class="tool-panel">
             <div class="inner">Viewing all connections to your browser right now.</div>
+            <div class="inner">
+                <a class="btn">Button</a>
+                <a class="btn btn-blue btn-caps">Button</a>
+                <br>
+                <div class="btn-group dropdown-example">
+                    <a>December 11 &mdash; Today</a>
+                    <ul>
+                        <li><a>Hello</a></li>
+                        <li><a>World</a></li>
+                    </ul>
+                    <span class="dropdown-arrow"></span>
+                </div>
+            </div>
             <ul class="nav cl-nav">
                 <li><a class="cl-all">All</a></li>
+                <li><a class="cl-all">Settings</a></li>
+                <li><a class="cl-all">Security</a></li>
+                <li><a class="cl-all">Export</a></li>
             </ul>
         </div>
 
@@ -60,89 +76,7 @@
     <script src="data/5_dictionary.js"></script>
     <script src="data/6_lastfm.js"></script>
     <script src="src/vis3.js"></script>
+    <script src="src/ui.js"></script>
 
-    <script>
-        var SAMPLE_DATA = {
-            "nytimes.com" : {
-                name: "New York Times",
-                trackers: [
-                    "facebook.com",
-                    "blah.com"
-                ]
-            },
-            "facebook.com": {
-                name: "Facebook",
-                trackers: [
-                    "facebook.com",
-                    "blah.com"
-                ]
-            }
-        };
-
-        var nav = document.querySelector( ".cl-nav" );
-        var allTab = document.querySelector( ".cl-all" );
-        var stage = document.querySelector( ".cl-stage" );
-        var infoPanel = document.querySelector( ".cl-info" );
-        var trackerPanel = document.querySelector( ".cl-tracker-panel" );
-        var activeTab;
-
-        var siteTitle = infoPanel.querySelector( ".cl-name" );
-        var siteURL = infoPanel.querySelector( ".cl-url" );
-        var trackerList = trackerPanel.querySelector( ".cl-tracker-list" );
-
-        var views = {};
-
-        function toggleActiveState() {
-            if ( activeTab ) {
-                activeTab.classList.remove( "active" );
-            }
-            this.classList.toggle( "active" );
-            activeTab = this;
-        }
-
-        views.all = function() {
-            toggleActiveState.call( this );
-            infoPanel.classList.remove( "on" );
-            trackerPanel.classList.remove( "on" );
-            stage.style.width = "750px";
-        };
-
-        views.site = function() {
-            var url = this.innerHTML,
-                data = SAMPLE_DATA[ url ];
-
-            toggleActiveState.call( this );
-            infoPanel.classList.add( "on" );
-            trackerPanel.classList.add( "on" );
-            stage.style.width = "";
-
-            siteTitle.innerHTML = data.name;
-            siteURL.innerHTML = url;
-        };
-
-        function createSiteEl( site ) {
-            var data = SAMPLE_DATA[ site ],
-                li = document.createElement( "li" ),
-                a = document.createElement( "a" );
-
-            a.innerHTML = site;
-            a.classList.add( "site" );
-            a.addEventListener( "click", views.site, false );
-
-            li.appendChild( a );
-            nav.appendChild( li );
-        }
-
-        // Setup
-        for ( var site in SAMPLE_DATA ) {
-            if ( SAMPLE_DATA.hasOwnProperty ( site ) ) {
-                createSiteEl( site );
-            }
-        }
-
-        allTab.addEventListener( "click", views.all, false );
-        views.all();
-
-    </script>
 </body>
 </html>
