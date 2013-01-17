@@ -1,14 +1,12 @@
 var express = require('express'),
     lessMiddleware = require('less-middleware'),
-    fs = require('fs'),
-    path = require('path'),
     app = express.createServer(express.logger()),
     port = 7777,
     dirname = __dirname;
 
  app.use(lessMiddleware({
-        src: __dirname,
-        compress: true
+        src: dirname,
+        compress: false
     }));
 
 app.use(express.static(dirname));

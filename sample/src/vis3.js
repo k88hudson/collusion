@@ -105,7 +105,8 @@ function dynamicForceVisualization(trackers){
         
     circles.exit()
         .remove();
-    
+
+
     // Update method
     force.on('tick', function(){
 
@@ -121,6 +122,12 @@ function dynamicForceVisualization(trackers){
             .attr('r', function(d){return d.radius;})
             .attr('title', function(d){return d.name;})
             .attr('class', function(d){return d.visited ? 'site': 'tracker';});
+    });
+
+    // On click
+    vis.selectAll('circle').on('click', function(){
+        var infoPanel = document.querySelector( ".cl-info" );
+        infoPanel.classList.add( "on" );
     });
 }
 
