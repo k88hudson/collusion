@@ -39,9 +39,27 @@
         activeTab = this;
     }
 
-    function toggleDrownDown( el ) {
+    function toggleDrownDown( el, callback ) {
+        var selected,
+            list = el.querySelector( "[data-list]" );
+
+        callback = callback || function(){};
+
         el.addEventListener( "click", function( e ) {
-            el.classList.toggle( "expanded" );
+            var target = e.target,
+                selected = el.querySelector( "[data-selected]" );
+
+            if ( target === selected ) {
+                el.classList.toggle( "expanded" );
+            } else {
+                list.querySelector("[data-selected]").removeAttribute( "data-selected" );
+                target.setAttribute( "data-selected", true );
+                el.removeChild( selected );
+                el.insertBefore( target.cloneNode( true ), list );
+                el.classList.toggle( "expanded" );
+                callback( target.getAttribute( "data-value" ) );
+            }
+
         }, false );
     }
 
@@ -85,7 +103,9 @@
         }
     }
 
-    toggleDrownDown( sampleDropdown );
+    toggleDrownDown( sampleDropdown, function( val ) {
+        console.log( val );
+    });
 
     allTab.addEventListener( "click", views.all, false );
     views.all();

@@ -17,16 +17,18 @@
         <div class="tool-panel">
             <div class="inner">Viewing all connections to your browser right now.</div>
             <div class="inner">
-                <a class="btn">Button</a>
-                <a class="btn btn-blue btn-caps">Button</a>
-                <br>
-                <div class="btn-group dropdown-example">
-                    <a>December 11 &mdash; Today</a>
-                    <ul>
-                        <li><a>Hello</a></li>
-                        <li><a>World</a></li>
-                    </ul>
-                    <span class="dropdown-arrow"></span>
+                <div class="btn-set">
+                    <a class="btn">Button</a> This is some text describing some stuff blah blah
+                    <a class="btn btn-blue btn-caps">Button</a>
+                    <br>
+                    <div class="btn-group dropdown-example">
+                        <a data-selected>December 1 &mdash; Today</a>
+                        <div data-list>
+                            <a data-selected data-value="time">December 1 &mdash; Today</a>
+                            <a data-value="hello">Hello</a>
+                            <a data-value="world">World</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <ul class="nav cl-nav">

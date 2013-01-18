@@ -115,14 +115,18 @@ header {
 * UI Elements / Forms
 */
 
-.btn,
+.btn-set {
+    line-height: 35px;
+    font-size: 11px;
+}
+
+.btn ,
 .btn-group {
     display: inline-block;
     border-radius: 2px;
     padding: 0 12px;
     height: 28px;
     line-height: 28px;
-    margin-top: 5px;
 
     background: @midgrey;
     color: #FFF;
@@ -157,54 +161,62 @@ header {
 
 .btn-group {
     position: relative;
-    padding-right: 0;
+    border: 0;
+    padding: 0;
+    height: 30px;
+    width: 180px;
+    display: inline-block;
 
-    > a {
-        float: left;
-    }
-
-    &.expanded > ul {
-        display: inline-block;
-    }
-
-    > ul {
+    a {
         display: none;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-
-        position: absolute;
-        top: 100%;
-        left: -1px;
-        right: -1px;
-
         background: @midgrey;
         border: 1px solid @lightgrey;
+        border-top: none;
+        padding: 0 12px;
+        height: 28px;
+        overflow: hidden;
+    }
 
-        > li > a {
+    &.expanded [data-list] > a {
+        display: block;
+
+        &[data-selected] {
+            display: none;
+        }
+    }
+
+    [data-list] {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    > [data-selected] {
+        display: block;
+        padding-right: 28px;
+        border-top: 1px solid @lightgrey;
+        border-radius: 2px;
+
+        &:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 1;
             height: 28px;
-            padding: 0 12px;
-            display: block;
-            border-bottom: 1px solid @lightgrey;
-        }
-        > li:last-child a {
-            border-bottom: none;
+            width: 28px;
+            margin-left: 12px;
+
+            background: url("/img/triangle.png") center no-repeat;
+            border-left: 1px solid @lightgrey;
+            opacity: 0.8;
+
+            .btn-group:hover & {
+                opacity: 1;
+            }
         }
     }
-}
-.dropdown-arrow {
-    float: left;
-    height: 28px;
-    width: 28px;
-    margin-left: 12px;
 
-    background: url("/img/triangle.png") center no-repeat;
-    border-left: 1px solid @lightgrey;
-    opacity: 0.8;
-
-    .btn-group:hover & {
-        opacity: 1;
-    }
 }
 
 
