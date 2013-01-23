@@ -6,7 +6,7 @@ var express = require('express'),
 
  app.use(lessMiddleware({
         src: dirname,
-        compress: true
+        compress: false
     }));
 
 app.use(express.static(dirname));
